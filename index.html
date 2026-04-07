@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXP-982 重生×创业 | V6分镜剧本</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --card-bg: #161b22;
+  --card-border: #30363d;
+  --text: #e6edf3;
+  --text-secondary: #8b949e;
+  --accent: #58a6ff;
+  --dialogue-bg: rgba(88,166,255,0.08);
+  --dialogue-color: #79c0ff;
+  --part-num-color: #f0883e;
+  --camera-bg: rgba(139,148,158,0.08);
+  --header-gradient: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 16px;
+}
+/* Header */
+.page-header {
+  background: var(--header-gradient);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 24px 20px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.page-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(90deg, #58a6ff, #bc8cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.meta-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.meta-tag {
+  display: inline-block;
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 99px;
+  background: rgba(88,166,255,0.1);
+  color: var(--accent);
+  border: 1px solid rgba(88,166,255,0.2);
+}
+/* Collapsible sections */
+details {
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  background: var(--card-bg);
+}
+details summary {
+  padding: 14px 16px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  user-select: none;
+}
+details summary:hover { color: var(--text); }
+details[open] summary { border-bottom: 1px solid var(--card-border); }
+.section-body {
+  padding: 12px 16px;
+}
+/* Character items */
+.char-item {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(48,54,61,0.5);
+  font-size: 14px;
+}
+.char-item:last-child { border-bottom: none; }
+.char-dot {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.char-desc {
+  display: block;
+  margin-top: 4px;
+  margin-left: 16px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+/* Scene items */
+.scene-item {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(48,54,61,0.5);
+  font-size: 14px;
+}
+.scene-item:last-child { border-bottom: none; }
+.scene-desc {
+  display: block;
+  margin-top: 4px;
+  margin-left: 4px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+/* Segment card */
+.segment-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.segment-card:hover {
+  border-color: rgba(88,166,255,0.4);
+}
+.segment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px 8px;
+}
+.segment-num {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.segment-dur {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: rgba(240,136,62,0.12);
+  color: var(--part-num-color);
+}
+.segment-meta {
+  padding: 0 16px 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+/* Physical state inside segment */
+.segment-card .physical-state {
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+  background: rgba(139,148,158,0.03);
+}
+.segment-card .physical-state summary {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.ps-item {
+  padding: 4px 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+/* Parts */
+.parts-container {
+  padding: 10px 16px 6px;
+}
+.part-line {
+  padding: 8px 0;
+  font-size: 15px;
+  line-height: 1.8;
+  border-bottom: 1px solid rgba(48,54,61,0.3);
+}
+.part-line:last-child { border-bottom: none; }
+.part-num {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--part-num-color);
+  background: rgba(240,136,62,0.1);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.char-tag {
+  font-weight: 600;
+}
+.dialogue {
+  color: var(--dialogue-color);
+  background: var(--dialogue-bg);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-style: italic;
+}
+/* Camera */
+.camera-line {
+  padding: 8px 16px 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: var(--camera-bg);
+  border-top: 1px solid var(--card-border);
+}
+/* Stats */
+.stats-bar {
+  text-align: center;
+  padding: 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+.stats-bar span {
+  margin: 0 8px;
+}
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  .container { padding: 10px; }
+  .page-header { padding: 18px 14px; }
+  .page-header h1 { font-size: 19px; }
+  .part-line { font-size: 14px; }
+  .segment-header { padding: 10px 12px 6px; }
+  .parts-container { padding: 8px 12px 4px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="page-header">
+  <h1>EXP-982 重生×创业 | V6分镜剧本</h1>
+  <div class="meta-tags">
+    <span class="meta-tag">🎬 realistic</span>
+    <span class="meta-tag">🌍 中国·2010·深圳</span>
+    <span class="meta-tag">🎨 cinematic realistic, 2010s urban Chinese...</span>
+    <span class="meta-tag">📊 17 segments</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <span>👤 4 角色</span>
+  <span>🏞️ 6 场景</span>
+  <span>🎬 17 分镜</span>
+</div>
+
+<details>
+  <summary>👤 角色设定 (4)</summary>
+  <div class="section-body"><div class="char-item"><span class="char-dot" style="background:#e74c3c"></span><strong>[林启]</strong><span class="char-desc">22岁男性（前世28岁程序员灵魂），身高176cm偏瘦体型，皮肤偏白带黑眼圈，椭圆脸单眼皮细长眼，鼻梁挺直薄嘴唇，黑色短碎发微卷刘海，身穿灰色圆领T恤与深蓝牛仔裤白色帆布鞋。表情常在呆萌与精明之间切换。</span></div>
+<div class="char-item"><span class="char-dot" style="background:#3498db"></span><strong>[赵薇薇]</strong><span class="char-desc">22岁女性，身高165cm匀称体型，白皙皮肤，瓜子脸大眼睛双眼皮高鼻梁，嘴角微微上翘带天然毒舌感，黑色马尾长发，身穿白色Polo衫与浅蓝牛仔短裤白色球鞋。</span></div>
+<div class="char-item"><span class="char-dot" style="background:#2ecc71"></span><strong>[胖虎-王大壮]</strong><span class="char-desc">22岁男性，身高180cm壮硕微胖体型，小麦色皮肤，圆脸小眼睛塌鼻梁厚嘴唇，黑色板寸头，身穿橙色印花大码T恤与黑色运动短裤人字拖。憨态可掬表情丰富。</span></div>
+<div class="char-item"><span class="char-dot" style="background:#f39c12"></span><strong>[钱总]</strong><span class="char-desc">38岁男性，身高172cm微胖体型，肤色偏黄，国字脸浓眉大眼蒜头鼻，黑色稀疏偏分发型，身穿米白色亚麻西装内搭黑色高领衫，左手腕戴一串佛珠，右手常夹一本《乔布斯传》。</span></div>
+</div>
+</details>
+
+<details>
+  <summary>🏞️ 场景描述 (6)</summary>
+  <div class="section-body"><div class="scene-item"><strong>[大厂工位-深夜]</strong><span class="scene-desc">2026年现代互联网大厂开放式办公区，冷蓝色LED灯光，成排的双屏显示器发着幽光，桌面散落着空红牛罐和外卖盒，远处几个工位亮着屏幕无人。</span></div>
+<div class="scene-item"><strong>[大学宿舍-晨]</strong><span class="scene-desc">2010年深圳某大学男生宿舍，温暖偏黄的晨光从铁栅栏窗户透入，上下铺铁床，墙上贴着魔兽世界和NBA海报，桌面摆着诺基亚直板手机和厚重CRT显示器，地上散落CS1.6光盘盒。</span></div>
+<div class="scene-item"><strong>[校园烧烤摊-夜]</strong><span class="scene-desc">2010年大学城路边烧烤摊，暖黄白炽灯泡吊在铁丝上，烟雾缭绕，红色塑料矮凳矮桌，桌上摆满烤串和绿瓶啤酒，背景是夜色中的大排档。</span></div>
+<div class="scene-item"><strong>[城中村出租屋-日]</strong><span class="scene-desc">2010年深圳城中村三十平米出租屋改造的办公室，一张大折叠桌三把椅子三台组装电脑，墙上用A4纸贴满产品原型图，角落堆着泡面箱和矿泉水。</span></div>
+<div class="scene-item"><strong>[咖啡厅-午后]</strong><span class="scene-desc">2010年深圳华强北附近的星巴克，暖色调木质装修，午后阳光透过落地窗洒入，桌上摆着拿铁和一本翻到一半的《乔布斯传》。</span></div>
+<div class="scene-item"><strong>[出租屋-深夜]</strong><span class="scene-desc">同城中村出租屋但深夜，只有三台显示器发出的冷蓝光，桌面堆满红牛罐和泡面碗，白板上写满代码架构图。</span></div>
+</div>
+</details>
+
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 1</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [大厂工位-深夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面中央偏左，坐姿，双手放在键盘上，头部低垂面朝屏幕，身穿黑色卫衣灰色运动裤（前世28岁形象，比22岁版成熟憔悴）。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span>冷蓝色的办公区只剩几盏屏幕亮着，<span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>瘫在椅子上，双眼布满血丝紧盯代码，左手无力地握着空红牛罐。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>有气无力地自言自语：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"第三个月了……又是凌晨三点……心脏好像在抗议。"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>突然右手捂住左胸，五指用力抓紧卫衣布料，面部痛苦扭曲额头冒汗，身体猛地向左倾倒，砸翻桌上的红牛罐。</div>
+
+  </div>
+  <div class="camera-line">🎥 中景，俯视角度，机位从右向左缓慢平移，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 2</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [大学宿舍-晨] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，躺在下铺床上，双手抓着薄被，身穿白色背心和格纹短裤（22岁版本）。</div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>**: 画面右侧，坐在电脑桌前，右手握鼠标，视线朝向CRT显示器，屏幕上显示CS1.6游戏画面。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>猛地从床上弹坐起来，双眼瞪得浑圆，大口喘着粗气，双手摸自己的脸和胸口确认自己还活着。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>惊恐地喊：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"我没死？！大壮！大壮！现在几几年？！"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#2ecc71"</span></span>>[胖虎-王大壮]</span>头也不回，右手操作鼠标疯狂点击，嘴里嚼着辣条。</div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#2ecc71"</span></span>>[胖虎-王大壮]</span>不耐烦地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"2010年啊！别吵，这把rush B！牛逼！"</span></span></div>
+
+  </div>
+  <div class="camera-line">🎥 全景，平视角度，固定机位，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 3</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [大学宿舍-晨] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面中央，坐在床沿，双脚踩在地上，双手拿着一部诺基亚直板手机，视线低垂盯着手机屏幕。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>颤抖着拿起床头的诺基亚手机，屏幕显示日期<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"2010年6月15日"</span></span>，QQ消息提示<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"小薇薇已加你为好友"</span></span>。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>嘴唇哆嗦，眼眶微微泛红，然后嘴角慢慢上扬，露出一个又哭又笑的表情。</div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>攥紧手机贴在胸口，深吸一口气，眼神从迷茫变得坚定锐利，低声说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"老子……重活一次。"</span></span></div>
+
+  </div>
+  <div class="camera-line">🎥 特写，平视角度，机位从手机屏幕缓慢上摇到林启面部，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 4</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [大学宿舍-晨] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，站立，双手抓住胖虎的肩膀，视线面向<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>。</div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>**: 画面右侧，坐在椅子上被抓住肩膀，嘴里还叼着辣条，视线面向<span class="char-tag" style="color:#e74c3c">[林启]</span>。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>猛地跳下床冲到胖虎面前，双手用力抓住他的肩膀摇晃，眼神狂热。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>激动地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"考研不考了！我要创业！做手机上的即时通讯——比QQ牛一百倍！"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#2ecc71"</span></span>>[胖虎-王大壮]</span>嘴里的辣条掉在键盘上，圆脸上写满困惑，小眼睛眨了三下。</div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#2ecc71"</span></span>>[胖虎-王大壮]</span>结巴地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"啥……啥即时通讯？你是不是昨晚论文写魔怔了？"</span></span></div>
+
+  </div>
+  <div class="camera-line">🎥 近景，平视角度，机位缓慢推向两人面部，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 5</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [校园烧烤摊-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，坐在红色塑料矮凳上，左手拿啤酒瓶，右手拿烤串比划，视线面向<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>。</div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>**: 画面右侧，坐在矮凳上，双手各抓三串烤肉，视线面向<span class="char-tag" style="color:#e74c3c">[林启]</span>，嘴巴塞得鼓鼓的。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span>烧烤烟雾升腾中，<span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>一手拿啤酒一手用烤串在空中画圈，眼神炽热像传销头目。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>郑重地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"大壮，跟我干，三年后我请你吃海底捞——呃，海底捞你们现在还不知道。"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#2ecc71"</span></span>>[胖虎-王大壮]</span>嘴里塞满烤肉，含糊不清地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"海底……啥？听起来很牛逼！干了！"</span></span></div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#2ecc71"</span></span>>[胖虎-王大壮]</span>举起啤酒瓶猛地和林启碰杯，啤酒泡沫溅出来洒了一桌，两人哈哈大笑。</div>
+
+  </div>
+  <div class="camera-line">🎥 中景，平视角度，固定机位，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 6</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [校园烧烤摊-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#3498db">[赵薇薇]</span>, <span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，坐姿，右手拿着几张手绘产品原型图摊在桌上，视线面向<span class="char-tag" style="color:#3498db">[赵薇薇]</span>。</div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[赵薇薇]</span>**: 画面中央，站在桌边，双手抱胸，歪头看着桌上的原型图，表情带着嘲讽。</div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>**: 画面右侧，坐姿，低头猛吃烤串，偶尔抬眼看两人。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>路过烧烤摊，低头扫了一眼桌上的手绘产品原型图，脚步突然停住，眉毛微微挑起。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>嘴角一撇，嘲讽地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"林启，你连毕业设计都是抄的，还创业？"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>不慌不忙把原型图推到赵薇薇面前，手指点着交互流程图，嘴角微微上翘。</div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>笃定地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"你看看这个产品逻辑，再决定要不要骂我。"</span></span></div>
+
+  </div>
+  <div class="camera-line">🎥 近景，平视角度，机位从赵薇薇脸部慢慢摇向桌面原型图，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 7</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [校园烧烤摊-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#3498db">[赵薇薇]</span>, <span class="char-tag" style="color:#e74c3c">[林启]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#3498db">[赵薇薇]</span>**: 画面左侧，弯腰俯身看桌上的原型图，双手撑在桌面上，视线低垂盯着纸面。</div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面右侧，坐姿，双手插兜往后靠，视线面向<span class="char-tag" style="color:#3498db">[赵薇薇]</span>，嘴角带笑。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>盯着原型图看了五秒，大眼睛里的嘲讽慢慢消失，瞳孔微微放大，嘴唇轻轻分开。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>抬起头，强装镇定但声音微微发抖地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"逻辑……还行吧。看你能折腾多久。"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>一把从桌上拿走原型图塞进自己包里，转身快步走开，马尾甩出一个弧度。</div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>对着她的背影笑了笑，低声说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"第三个联合创始人，到手。"</span></span></div>
+
+  </div>
+  <div class="camera-line">🎥 中景，平视角度，机位跟随赵薇薇的动作微微右摇，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 8</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [咖啡厅-午后] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#f39c12">[钱总]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，坐姿，身体微微前倾，双手交叉放在桌面上，视线面向<span class="char-tag" style="color:#f39c12">[钱总]</span>。</div><div class="ps-item">**<span class="char-tag" style="color:#f39c12">[钱总]</span>**: 画面右侧，坐姿，左手转着佛珠右手端咖啡杯，视线面向<span class="char-tag" style="color:#e74c3c">[林启]</span>，表情审视。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#f39c12"</span></span>>[钱总]</span>右手端着咖啡杯轻轻吹了一口，左手拨弄佛珠，眼神审视地上下打量<span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#f39c12"</span></span>>[钱总]</span>慢悠悠地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"小伙子，乔布斯说过，创新就是——你的护城河是什么？"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>脱口而出：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"网络效应！用户越多价值越——"</span></span>突然顿住，眨眨眼，自言自语嘀咕：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"等等，这个词2010年有吗……"</span></span></div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#f39c12"</span></span>>[钱总]</span>端咖啡的手停在嘴边，浓眉挤到一起，困惑地看着<span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>。</div>
+
+  </div>
+  <div class="camera-line">🎥 中景，平视角度，固定机位，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 9</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [咖啡厅-午后] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#f39c12">[钱总]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，坐姿，身体前倾，双手撑在桌面上，视线直视<span class="char-tag" style="color:#f39c12">[钱总]</span>的眼睛。</div><div class="ps-item">**<span class="char-tag" style="color:#f39c12">[钱总]</span>**: 画面右侧，坐姿，右手放下咖啡杯，身体略后仰，视线面向<span class="char-tag" style="color:#e74c3c">[林启]</span>。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>深吸一口气收起尴尬，身体前倾双手撑桌，眼神变得锐利而诚恳。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>一字一句地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"钱总，三年后，人人都会用手机聊天，不用电脑。谁先做出来，谁就是下一个QQ。"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#f39c12"</span></span>>[钱总]</span>佛珠停止转动，眯起眼盯着林启看了三秒，然后仰头哈哈大笑。</div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#f39c12"</span></span>>[钱总]</span>笑着摇头说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"你喝多了吧小伙子？——不过我喜欢，五十万，干了。"</span></span></div>
+
+  </div>
+  <div class="camera-line">🎥 近景，平视角度，机位缓慢推向两人之间桌面，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 10</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [城中村出租屋-日] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#3498db">[赵薇薇]</span>, <span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面中央，站立，右手拿记号笔面向墙上的白板，视线朝向白板。</div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[赵薇薇]</span>**: 画面左侧，坐在折叠椅上，双手在笔记本电脑键盘上飞速敲击，视线朝向屏幕。</div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>**: 画面右侧，坐在椅子上，双手捧着自己的手机反复打开关闭APP，视线朝向手机屏幕。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span>三十平出租屋里，三台组装电脑排成一排，墙上贴满A4纸原型图，<span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>在白板上画产品架构。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>边画边说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"这个功能要灰度发布，先小范围AB测试——"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>停下敲键盘，转头面向<span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>，眉头紧皱嘴角抽动。</div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>一脸嫌弃地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"你又在说鬼话。什么灰度？什么AB？说人话！"</span></span></div>
+
+  </div>
+  <div class="camera-line">🎥 全景，平视角度，固定机位，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 11</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [城中村出租屋-日] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，站立，右手拍着胖虎的肩膀，视线面向<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>。</div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>**: 画面右侧，坐在椅子上，双手捧着手机，满脸认真，视线面向手机屏幕。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>走到胖虎身后，弯腰看他的手机屏幕，发现他在用自己开发的APP反复给自己发消息。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>忍住笑问：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"大壮，你在干嘛？"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#2ecc71"</span></span>>[胖虎-王大壮]</span>头也不抬，满脸严肃地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"测试啊！我现在日活贡献最大——牛逼吧？"</span></span></div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>扶额，无奈但嘴角忍不住上翘，轻声吐槽：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"日活一个人，还是你自己……"</span></span></div>
+
+  </div>
+  <div class="camera-line">🎥 近景，俯视角度，机位从林启肩膀后方拍向手机屏幕，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 12</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [出租屋-深夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#3498db">[赵薇薇]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，坐姿，双手在键盘上飞速敲击，脸被屏幕蓝光照亮，视线朝向屏幕。</div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[赵薇薇]</span>**: 画面右侧，站在林启身后，双手抱着两杯泡面，视线面向<span class="char-tag" style="color:#e74c3c">[林启]</span>的屏幕。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span>深夜出租屋只有三台显示器的蓝光，<span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>双手在键盘上飞速敲击，代码行数在屏幕上飞速滚动。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>端着两杯泡面走到林启身后，低头看了一眼他的代码，脚步突然停住。</div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>眉头慢慢拧起来，眼里闪过一丝惊讶和怀疑，把泡面默默放在桌角。</div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>盯着屏幕上的代码，低声喃喃：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"这家伙的水平……突然强得不正常。"</span></span></div>
+
+  </div>
+  <div class="camera-line">🎥 中景，平视角度，机位从屏幕缓慢后拉到包含两人的中景，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 13</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [出租屋-深夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#3498db">[赵薇薇]</span>, <span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面中央，站立，双手抱头，视线面向中间那台显示器上的红色报错界面。</div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[赵薇薇]</span>**: 画面左侧，坐在电脑前，双手悬在键盘上方，视线面向自己的屏幕。</div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>**: 画面右侧，站立，双手捧着手机，视线面向手机屏幕。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span>中间显示器突然变成满屏红色报错信息，<span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>猛地站起来双手抱头，面部表情从专注瞬间切换为恐慌。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>大喊：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"服务器崩了！！所有连接全断了！"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#2ecc71"</span></span>>[胖虎-王大壮]</span>举起手机，屏幕上APP显示<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"连接失败"</span></span>，他小声说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"我发消息也发不出了……牛逼，这回是反向牛逼。"</span></span></div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>深吸一口气，冷静地面向自己的屏幕说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"别慌，先看日志。"</span></span></div>
+
+  </div>
+  <div class="camera-line">🎥 全景，平视角度，机位快速推向中间显示器红色报错画面，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 14</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [出租屋-深夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面中央，坐姿，双手放在键盘上，身体前倾，视线紧盯屏幕上的代码。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>闭上眼深吸一口气，前世十年debug经验在脑中翻涌，眼球在闭合的眼皮下快速转动。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>猛地睁眼，手指在键盘上疾速敲击，口中低声念叨：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"内存泄漏……连接池没有回收……前世踩过一模一样的坑。"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span>屏幕上红色报错一行行消失，绿色的<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"连接恢复"</span></span>字样开始闪烁，<span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>的嘴角慢慢上扬。</div>
+
+  </div>
+  <div class="camera-line">🎥 特写，平视角度，机位固定在林启面部和屏幕之间切换，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 15</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [城中村出租屋-日] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#3498db">[赵薇薇]</span>, <span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>**: 画面中央，站立，双手高举手机过头顶，视线朝向手机屏幕。</div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，坐在电脑前，右手撑着下巴，视线面向<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>。</div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[赵薇薇]</span>**: 画面右侧，坐在电脑前，嘴角微微上翘，视线面向自己的屏幕数据。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span>阳光透过窗户照进出租屋，<span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#2ecc71"</span></span>>[胖虎-王大壮]</span>盯着手机后台数据，小眼睛突然瞪圆，嘴巴张成O型。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#2ecc71"</span></span>>[胖虎-王大壮]</span>举起手机高过头顶，大声嚎叫：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"日活破一千了！！牛逼啊！！！"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#2ecc71"</span></span>>[胖虎-王大壮]</span>原地跳起来双脚离地，肥硕的身体让地板发出吱嘎声响，旁边桌上的泡面杯被震倒。</div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>嘴角微微上翘但迅速压住，故作冷淡地说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"也就一千，别那么没出息。"</span></span>但她的眼睛里闪着光。</div>
+
+  </div>
+  <div class="camera-line">🎥 全景，平视角度，固定机位，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 16</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [城中村出租屋-日] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#3498db">[赵薇薇]</span>, <span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面中央，站立，右手举起啤酒瓶，视线面向<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>和<span class="char-tag" style="color:#3498db">[赵薇薇]</span>。</div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[赵薇薇]</span>**: 画面左侧，站立，右手拿着矿泉水瓶，视线面向<span class="char-tag" style="color:#e74c3c">[林启]</span>。</div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[胖虎-王大壮]</span>**: 画面右侧，站立，左手举啤酒瓶右手还拿着手机，视线面向<span class="char-tag" style="color:#e74c3c">[林启]</span>。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>从桌下翻出三瓶啤酒，站起来把瓶子递给胖虎，笑着面向两人。</div>
+<div class="part-line"><span class="part-num">P2</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>举起啤酒瓶，笑着说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"深大只是开始，以后全中国都会用我们的APP——这叫对齐一下愿景。"</span></span></div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#3498db"</span></span>>[赵薇薇]</span>翻了个白眼，右手拿矿泉水瓶碰了一下林启的啤酒瓶，嘴上说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"又在说鬼话。"</span></span>但嘴角压不住地上扬。</div>
+<div class="part-line"><span class="part-num">P4</span>三个年轻人举杯碰在一起，啤酒泡沫和笑声充满了这间三十平的出租屋。</div>
+
+  </div>
+  <div class="camera-line">🎥 中景，仰视角度，机位从三人脚部缓慢上摇至碰杯画面，正常速度。</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 17</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [城中村出租屋-日] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面中央，坐在电脑前，左手拿啤酒瓶，右手放在鼠标上，视线朝向屏幕。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span>胖虎和赵薇薇离开后，<span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>独自坐在电脑前，打开邮箱，手指点击刷新。</div>
+<div class="part-line"><span class="part-num">P2</span>收件箱顶部弹出一封新邮件，发件人名字映在屏幕上——<span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>瞳孔猛然收缩。</div>
+<div class="part-line"><span class="part-num">P3</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>手中的啤酒瓶缓缓放下，脸上的笑容一点点凝固，变成凝重。他认出了这个名字——前世把他996到猝死的那个老板。</div>
+<div class="part-line"><span class="part-num">P4</span><span class=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"char-tag"</span></span> style=<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"color:#e74c3c"</span></span>>[林启]</span>的嘴唇微微颤抖，低声说：<span class=<span class="dialogue">"dialogue"</span>><span class="dialogue">"你怎么……这么早就注意到我了。"</span></span>画面定格在林启半明半暗的脸上，屏幕蓝光照亮他凝重的表情。</div>
+
+  </div>
+  <div class="camera-line">🎥 特写，平视角度，机位从屏幕邮件内容缓慢推向林启的面部，正常速度。</div>
+</div>
+
+
+</div>
+
+<script>
+// Auto-open first segment's physical state on load (optional interactivity)
+document.addEventListener('DOMContentLoaded', function() {
+  // Smooth scroll spy - highlight current segment
+  const cards = document.querySelectorAll('.segment-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.borderColor = 'rgba(88,166,255,0.5)';
+      } else {
+        e.target.style.borderColor = '';
+      }
+    });
+  }, { threshold: 0.3 });
+  cards.forEach(c => observer.observe(c));
+});
+</script>
+</body>
+</html>
