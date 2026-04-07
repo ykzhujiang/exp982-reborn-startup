@@ -1,0 +1,29 @@
+{
+  "project": "exp982-reborn-startup",
+  "created_at": "2026-04-07T04:53:00.994021+00:00",
+  "github_repo": "ykzhujiang/exp982-reborn-startup",
+  "config": {
+    "theme": "程序员猝死后重生回2010年，利用未来记忆在移动互联网前夜创业逆袭。搞笑与热血交织，充满时代梗和互联网黑话的错位喜剧。",
+    "genre": "comedy",
+    "style": "realistic",
+    "duration": 120,
+    "characters": 4,
+    "setting": "中国·2010·深圳",
+    "appearance": "east-asian"
+  },
+  "status": "not_started",
+  "steps": {
+    "step1b": {
+      "status": "not_started"
+    },
+    "step3": {
+      "status": "not_started"
+    },
+    "step4": {
+      "status": "not_started"
+    },
+    "step6": {
+      "status": "not_started"
+    }
+  }
+}
